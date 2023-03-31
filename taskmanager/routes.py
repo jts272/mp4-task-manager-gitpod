@@ -42,3 +42,24 @@ def add_category():
 
     # Default 'GET' behaviour (pseudo-else condition):
     return render_template("add_category.html")
+
+
+# The var we supply from clicking the 'Edit' button in
+# edit_category.html is in angled brackets.
+# We have casted it as 'int' as it is the Primary Key
+@app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
+# Pass in the category_id var to the function
+def edit_category(category_id):
+    # Define 'category' for the edit button
+    # We query the imported 'Category' model from the database
+    category = Category.query.get_or_404(category_id)
+    # POST:
+    if request.method == "POST":
+        # Change the category name in the DB to that of the form input
+        category.category_name = request.form.get("category_name")
+        # Update DB and redirect back to the rest of the categories
+        db.session.commit()
+        return redirect(url_for("categories"))
+    # GET:
+    # Make the 'category' var (Primary Key for loop instance) available
+    return render_template("edit_category.html", category=category)
