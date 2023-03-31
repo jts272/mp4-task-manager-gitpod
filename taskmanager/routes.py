@@ -13,7 +13,15 @@ def home():
 
 @app.route("/categories")
 def categories():
-    return render_template("categories.html")
+    # all() method returns a cursor object.
+    # Wrap the var to convert into a Python list with 'list()'
+    categories = list(Category.query.order_by(Category.category_name).all())
+    # Return the categories var defined above in the view
+    # First 'categories' = used in the html template
+    # Second 'categories' = the content of the Python var from this
+    # function.
+
+    return render_template("categories.html", categories=categories)
 
 
 # Supply http methods as we are submitting a form in this view
