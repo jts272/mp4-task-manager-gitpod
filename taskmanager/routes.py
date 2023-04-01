@@ -63,3 +63,19 @@ def edit_category(category_id):
     # GET:
     # Make the 'category' var (Primary Key for loop instance) available
     return render_template("edit_category.html", category=category)
+
+
+# Deletion handled in back end. New template unnecessary.
+# Pass category_id vars into route and function
+# Best practice to include a confirmation modal first in real deployment
+# As it is in a loop, href="#modal{{ category.id }}"
+# See https://youtu.be/EyTSAkZWHY4?t=290
+# Also, authentication would be implemented so deletion is tied to the
+# current user's records.
+@app.route("/delete_category/<int:category_id>")
+def delete_category(category_id):
+    # DB query
+    category = Category.query.get_or_404(category_id)
+    db.session.delete(category)
+    db.session.commit()
+    return redirect(url_for("categories"))
