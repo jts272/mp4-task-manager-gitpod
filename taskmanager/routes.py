@@ -8,7 +8,12 @@ from taskmanager.models import Category, Task
 
 @app.route("/")
 def home():
-    return render_template("tasks.html")
+    # CRUD-R
+    # Extract tasks from the database to show on homepage. Query the DB
+    # and order by id. Uses the imported Task model. Convert to list.
+    tasks = list(Task.query.order_by(Task.id).all())
+    # Pass this list to the frontend template
+    return render_template("tasks.html", tasks=tasks)
 
 
 @app.route("/categories")

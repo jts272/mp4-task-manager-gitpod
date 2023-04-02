@@ -10,3 +10,7 @@ main {
 }
 
 /* /Materialize sticky footer */
+
+.datepicker-date-display {
+  background-color: red;
+}

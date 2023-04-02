@@ -46,3 +46,15 @@ Create `static` dir
 
 Use `{{ url_for }}` syntax to link to local styles and scripts. CDN links can be
 used as normal.
+
+## Getting data from the backend to the frontend
+
+*R in CRUD*
+
+1. Create the var in the `@app.route` of the view you wish to use to display the
+given data. In general, this is a Python list made using the Flask/SQLAlchemy
+`query` method on the imported model.
+2. Pass this var into the `render_template()` e.g. `tasks=tasks`
+
+
+

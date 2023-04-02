@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let datepicker = document.querySelectorAll('.datepicker');
   M.Datepicker.init(datepicker, {
     format: "dd mmmm, yyyy",
+    firstDay: 1,
     // Internationalization options. Set them with this object
     i18n: {
       done: "Select"
@@ -32,4 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Form select init
   let selects = document.querySelectorAll('select');
   M.FormSelect.init(selects);
+
+  // Collapsible init
+  let collapsibles = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(collapsibles);
 });
