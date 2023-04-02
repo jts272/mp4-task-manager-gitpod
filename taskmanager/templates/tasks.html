@@ -15,11 +15,17 @@
 <!-- https://materializecss.com/collapsible.html -->
 <ul class="collapsible">
   <!-- loop over each task (as number is unknown) and dynamically create an <li> for it -->
-  {% for task in tasks %}
+  <!-- Use Jinja filters to sort the tasks by due date -->
+  <!-- https://jinja.palletsprojects.com/en/3.0.x/templates/#jinja-filters.sort -->
+  <!-- I added a custom sort to put urgent entries first -->
+  {% for task in tasks|sort(attribute="due_date")|sort(reverse=True, attribute="is_urgent") %}
   <li>
     <div class="collapsible-header white-text light-blue darken-4">
       <i class="fas fa-caret-down"></i>
-      <strong>{{ task.task_name }}</strong> : {{ task.due_date }}
+      <!-- Include string from time Python directive for appropriate date display -->
+      <!-- See https://strftime.org/ -->
+      <!-- Format matches that specified in Materialize init in script.js -->
+      <strong>{{ task.task_name }}</strong> : {{ task.due_date.strftime("%d %B, %Y") }}
       <!-- Check is_urgent condition -->
       {% if task.is_urgent == True %}
       <i class="fas fa-exclamation-circle light-blue-text text-lighten-2"></i>

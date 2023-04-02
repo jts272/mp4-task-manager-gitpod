@@ -54,6 +54,8 @@ used as normal.
 1. Create the var in the `@app.route` of the view you wish to use to display the
 given data. In general, this is a Python list made using the Flask/SQLAlchemy
 `query` method on the imported model.
+   - Querying the DB returns a 'Cursor Object' or 'QuerySet'. It is better to
+   convert them to Python lists.
 2. Pass this var into the `render_template()` e.g. `tasks=tasks`
 
 
