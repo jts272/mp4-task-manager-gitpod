@@ -79,3 +79,31 @@ def delete_category(category_id):
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for("categories"))
+
+
+# Supply http methods as we are submitting a form in this view
+@app.route("/add_task", methods=["GET", "POST"])
+def add_task():
+    # Extract all categories available so user can select a category for
+    # their task
+    categories = list(Category.query.order_by(Category.category_name).all())
+    if request.method == "POST":
+        # Update POST method to reflect each of the field that will be
+        # added from the form we will create
+        task = Task(
+            task_name=request.form.get("task_name"),
+            task_description=request.form.get("task_description"),
+            is_urgent=bool(True if request.form.get("is_urgent") else False),
+            due_date=request.form.get("due_date"),
+            category_id=request.form.get("category_id")
+        )
+        # Once form is submitted, add the new 'task' var to the DB
+        # session.
+        db.session.add(task)
+        db.session.commit()
+        # Redirect to the home() function after submitting
+        return redirect(url_for("home"))
+
+    # If not 'POST', show form to add task
+    # Pass in var to display categories
+    return render_template("add_task.html", categories=categories)

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="light-blue-text text-darken-4 center-align">Add Task</h3>
+
+<!-- https://materializecss.com/text-inputs.html -->
+<!-- Add 'card-panel' Materialize class -->
+<div class="row card-panel grey lighten-5">
+  <!-- Point back to the 'add_task() function' -->
+  <form class="col s12" method="POST" action="{{ url_for('add_task') }}">
+    <!-- task_name -->
+    <div class="row">
+      <div class="input-field col s12">
+        <!-- 'prefix' class adds icon before the box -->
+        <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+        <!-- Match id, name and for for Python to recognize the form data -->
+        <!-- 'name' attr added manually to this form snippet -->
+        <input id="task_name" name="task_name" minlength="5" maxlength="50" type="text" class="validate" required>
+        <label for="task_name">Task Name</label>
+      </div>
+    </div>
+    <!-- task_description -->
+    <div class="row">
+      <div class="input-field col s12">
+        <!-- 'prefix' class adds icon before the box -->
+        <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
+        <!-- Match id, name and for for Python to recognize the form data -->
+        <!-- 'name' attr added manually to this form snippet -->
+        <!-- Materialize textarea helper class used -->
+        <textarea id="task_description" name="task_description" minlength="5" maxlength="200" type="text"
+          class="materialize-textarea validate" required></textarea>
+        <label for="task_description">Task Description</label>
+      </div>
+    </div>
+    <!-- due_date -->
+    <div class="row">
+      <div class="input-field col s12">
+        <!-- 'prefix' class adds icon before the box -->
+        <i class="fas fa-calendar-alt prefix light-blue-text text-darken-4"></i>
+        <!-- Match id, name and for for Python to recognize the form data -->
+        <!-- 'name' attr added manually to this form snippet -->
+        <!-- Use Materialize datepicker (requires JS initialization)-->
+        <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
+        <label for="due_date">Due Date</label>
+      </div>
+    </div>
+    <!-- is_urgent -->
+    <div class="row">
+      <div class="input-field col s12">
+        <!-- Switch -->
+        <!-- https://materializecss.com/switches.html -->
+        <div class="switch">
+          <i class="fas fa-exclamation-circle prefix light-blue-text text-darken-4"></i>
+          <label for="is_urgent">Is Urgent
+            <input id="is_urgent" name="is_urgent" type="checkbox">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- category_id -->
+    <div class="row">
+      <div class="input-field col s12">
+        <!-- 'prefix' class adds icon before the box -->
+        <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
+        <!-- Match id, name and for for Python to recognize the form data -->
+        <select name="category_id" id="category_id" class="validate" required>
+          <option value="" disabled selected>Choose Category</option>
+          <!-- Jinja loop that retrieves categories from the DB -->
+          {% for category in categories %}
+          <!-- value attr is captured for select elements, not name -->
+          <option value="{{ category.id }}">{{ category.category_name }}</option>
+          {% endfor %}
+        </select>
+        <label for="category_id">Category</label>
+      </div>
+    </div>
+    <!-- submit button -->
+    <div class="row">
+      <div class="col s12 center-align">
+        <button type="submit" class="btn-large light-blue darken-1">
+          Add Category <i class="fas fa-plus-square right"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
