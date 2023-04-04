@@ -58,5 +58,36 @@ given data. In general, this is a Python list made using the Flask/SQLAlchemy
    convert them to Python lists.
 2. Pass this var into the `render_template()` e.g. `tasks=tasks`
 
+## Supplying DB keys into URLs
 
+1. When using the `{{ url_for }}` syntax to link to a page, the variable is made
+here. E.g. `<a href="{{ url_for('edit_task', task_id=task.id) }}">Edit</a>`. The
+dot notation part points to the actual `table.key`
+2. Now this var can be supplied in the routes and function definition, e.g.
+```
+@app.route("edit_task/<int:task_id>)
+def edit_task(task_id):
+    #
+```
+
+## Prepopulating forms with pre-exisitng DB values
+
+This is useful in instanced where the user wants to edit their submitted values
+
+Within an input element's opening tag:
+
+`value="{{ table.key }}"`
+
+Supply this *inside* the tags for `<textarea>` elements
+
+Remember to supply the relevant `strftime()` to match date format.
+
+Conditional logic is used on checkboxes to see if the checkbox/switch inherits
+the `checked` bool attribute from the DB.
+
+For `<select>`, use conditional logic to check the category from the DB and add
+the `selected` attribute *within* the for loop that displays each `<option>`
+
+`{{- table.key -}}` will eliminate added whitespace in textareas with the minus
+symbol.
 
