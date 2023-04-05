@@ -124,11 +124,13 @@ marks)
 ```
 **Debug is set *temporarily* in case of errors during deployment**
 
-7. The database is ready, but empty. In the Heroku dashboard, run a `python3`
-terminal:
+7. The database is ready, but empty. Deploying now will generate an error,
+because the databse models have not yet been provided. In the Heroku dashboard,
+run a `python3` terminal:
 ```
 from taskmanager import db
 db.create_all()
 exit()
 ```
-8. App is fully deployed! Test functionality!
+8. Link the GitHub repository and optionally enable automatic updates. The app
+can now be fully deployed! Test functionality and enjoy!
