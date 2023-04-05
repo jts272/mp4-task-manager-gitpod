@@ -91,3 +91,11 @@ the `selected` attribute *within* the for loop that displays each `<option>`
 `{{- table.key -}}` will eliminate added whitespace in textareas with the minus
 symbol.
 
+## Deployment Considerations
+
+Confirm actions on delete with modals
+
+Current app routes aren't protected so any site visitor has full CRUD access
+
+Using the backref and cascade deletes tasks associated with the deleted
+category, preventing errors.
