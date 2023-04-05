@@ -111,3 +111,24 @@ web: python run.py
 ```
 5. See changes to `__init__.py` to conditionally setup the external database for
 SQLAlchemy requirements
+6. Create a new app in Heroku. The new `DATABASE_URL` var comes from the
+ElephantSQL instance. Copy the contents of `env.py`, excluding the `DEVELOPMENT`
+and `DB_URL` vars, when setting the config vars in Heroku (excluding quotation
+marks)
+```
+"DATABASE_URL", "url_from_elephantsql"
+"IP", "0.0.0.0"
+"PORT", "5000"
+"SECRET_KEY", "whatever_secret_key"
+"DEBUG", "True"
+```
+**Debug is set *temporarily* in case of errors during deployment**
+
+7. The database is ready, but empty. In the Heroku dashboard, run a `python3`
+terminal:
+```
+from taskmanager import db
+db.create_all()
+exit()
+```
+8. App is fully deployed! Test functionality!
