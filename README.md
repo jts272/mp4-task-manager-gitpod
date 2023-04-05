@@ -99,3 +99,15 @@ Current app routes aren't protected so any site visitor has full CRUD access
 
 Using the backref and cascade deletes tasks associated with the deleted
 category, preventing errors.
+
+## Deployment Procedure
+
+1. Sign up to ElephantSQL and link GitHub
+2. Create instance and select datacenter
+3. `pip freeze --local > requirements.txt`
+4. Create `Procfile` for Heroku (No trailing empty line):
+```
+web: python run.py
+```
+5. See changes to `__init__.py` to conditionally setup the external database for
+SQLAlchemy requirements

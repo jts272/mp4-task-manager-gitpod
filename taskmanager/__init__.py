@@ -8,7 +8,18 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+
+# Conditional for deployment:
+if os.environ.get("DEVELOPMENT"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+else:
+    # Create new 'DATABASE_URL' var
+    uri = os.environ.get("DATABASE_URL")
+    # Further condition to change the URL for SQLAlchemy compatibility
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    # Then point to the 'uri' var with correct URL requirements
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
 db = SQLAlchemy(app)
 
